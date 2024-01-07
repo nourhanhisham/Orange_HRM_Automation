@@ -1,7 +1,7 @@
-@test
+@Run @test @Add_and_delete_users
 Feature: Add and delete users
 
-  @test @Run
+  @test
   Scenario: User add new user then delete the added one
     Given User Opens Home Page Insert "Admin" And "admin123"
     And User get the number of records found as an admin

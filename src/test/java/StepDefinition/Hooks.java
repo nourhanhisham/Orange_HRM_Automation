@@ -5,9 +5,8 @@ import Driver.DriverSetup;
 import commonUtils.CommonHelper;
 import io.cucumber.java.*;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 
 import java.net.MalformedURLException;
 
@@ -35,13 +34,23 @@ public class Hooks {
     @After("@test")
     public void stopDriver() {
         System.out.println("quit");
-      //  driver.close();
+        driver.quit();
     }
 
     @AfterStep("@test")
     public void addScreenshot(Scenario scenario) {
         CommonHelper.addScreenshotToCucumberReport(scenario, driver);
+    }
+
+    @AfterMethod
+    public void takeScreenshotOnFailure(ITestResult result) {
+        if (result.getStatus() == ITestResult.FAILURE) {
+            System.out.println("Failed");
+            System.out.println("Taking Screenshot...");
+            CommonHelper.addScreenshots(driver);
+        }
 
     }
+
 
 }

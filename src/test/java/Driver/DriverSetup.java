@@ -13,6 +13,9 @@ import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -83,4 +86,5 @@ public class DriverSetup {
     }
 
 
-}
+    }
+

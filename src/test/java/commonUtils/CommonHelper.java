@@ -1,12 +1,16 @@
 package commonUtils;
 
 import io.cucumber.java.Scenario;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CommonHelper {
 
@@ -142,8 +146,9 @@ public class CommonHelper {
     public static WebElement findElementByText(String tagName, String text, WebDriver driver) {
         return driver.findElement(By.xpath("//" + tagName + "[text()=" + "'" + text + "'" + "]"));
     }
+
     public static WebElement findElementContainsText(String tagName, String text, WebDriver driver) {
-        return driver.findElement(By.xpath("//"+ tagName + "[contains(text(),"+"'" + text + "'" + ")]"));
+        return driver.findElement(By.xpath("//" + tagName + "[contains(text()," + "'" + text + "'" + ")]"));
     }
 
     public static WebElement findElementByAny(String tagName, String attribute, String attributeValue, WebDriver driver) {
@@ -171,4 +176,27 @@ public class CommonHelper {
     public static void refreshPage(WebDriver driver) {
         driver.navigate().refresh();
     }
+
+    public static synchronized String addScreenshots(WebDriver driver) {
+
+        Long l = Calendar.getInstance().getTimeInMillis();
+        String screenshotId = l.toString();
+
+        String Path = System.getProperty("user.dir") + "/ScreenShots/";
+
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        String imgPath = Path + screenshotId + ".png";
+
+        File dest = new File(imgPath);
+        try {
+            FileUtils.copyFile(screenshot, dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String ImagePath = "../ScreenShots/" + screenshotId + ".png";
+
+        return ImagePath;
+    }
+
 }

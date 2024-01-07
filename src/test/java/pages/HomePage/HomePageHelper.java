@@ -43,9 +43,8 @@ public class HomePageHelper extends HomePageElements {
     public void insertEmployeeName(String employeeName){
        CommonHelper.refreshPage(driver);
         CommonHelper.sleep(3000);
-        CommonHelper.clearField(EmployeeName,driver);
         CommonHelper.sendText(EmployeeName,employeeName,driver);
-        CommonHelper.sleep(2000);
+        CommonHelper.sleep(3000);
        CommonHelper.clickWhenReady(EmployeeNameDropDownListFirstOption,driver);
     }
 
